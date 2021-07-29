@@ -1,49 +1,49 @@
 <template>
-  <div v-bind:class="{hidden: modal}">
+  <div :class="{hidden: modal}">
     <form class="theForm" id="theForm" @submit.prevent="onSubmit()">
       <label class="theForm__section theForm__section_type_required">Ваш филиал</label>
-      <select v-model="selectCity" aria-placeholder="Выберите город" :disabled= "selectCity === 'Онлайн'" v-on:change="formValidate()">
+      <select v-model="selectCity" aria-placeholder="Выберите город" :disabled= "selectCity === 'Онлайн'" @:change="formValidate()">
         <option disabled value="">Выберите город</option>
-        <option v-for="city of cities" :key="city.id" v-bind:value="city.id" >{{city.title}}</option>
+        <option v-for="city of cities" :key="city.id" :value="city.id" >{{city.title}}</option>
       </select>
       <div class="section__wrap">
-        <input type="checkbox" v-model="selectCity" true-value="Онлайн" false-value="" v-on:change="formValidate()">
+        <input type="checkbox" v-model="selectCity" true-value="Онлайн" false-value="" @:change="formValidate()">
         <label>Онлайн</label>
       </div>
       <label class="theForm__section theForm__section_type_required">Тема обращения</label>
         <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Недоволен качеством услуг" v-on:change="formValidate()">
+          <input type="radio" v-model="chosenReason" value="Недоволен качеством услуг" @:change="formValidate()">
           <label>Недоволен качеством услуг</label>
         </div>
         <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Расторжение договора" v-on:change="formValidate()">
+          <input type="radio" v-model="chosenReason" value="Расторжение договора" @:change="formValidate()">
           <label>Расторжение договора</label>
         </div>
         <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Не приходит письмо активации на почту" v-on:change="formValidate()"> 
+          <input type="radio" v-model="chosenReason" value="Не приходит письмо активации на почту" @:change="formValidate()"> 
           <label>Не приходит письмо активации на почту</label>
         </div>
         <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Не работает личный кабинет" v-on:change="formValidate()">
+          <input type="radio" v-model="chosenReason" value="Не работает личный кабинет" @:change="formValidate()">
           <label>Не работает личный кабинет</label>
         </div>
-        <input type="text" placeholder="Другое" v-model="chosenReason" v-on:change="formValidate()">
+        <input type="text" placeholder="Другое" v-model="chosenReason" @:change="formValidate()">
       
       <label class="theForm__section theForm__section_type_required">Описание проблемы</label> 
-      <textarea v-model="description" placeholder="Введите текст" v-on:keyup="formValidate()"></textarea>
+      <textarea v-model="description" placeholder="Введите текст" @:keyup="formValidate()"></textarea>
       
       <label class="theForm__section">Загрузка документов</label>
         <p class="section__descr">Приложите, пожалуйста, полноэкранный скриншот. Это поможет быстрее решить проблему.</p>
         <input type="file" accept="image/jpeg, image/gif, image/png">
       
-      <button type="submit" class="form__button form__button_type_disabled" id="button-sabmit" v-bind:disabled="buttonDisabled">Отправить</button>
+      <button type="submit" class="form__button form__button_type_disabled" id="button-sabmit" :disabled="buttonDisabled">Отправить</button>
     </form>
-    <div class="modal" v-bind:class="{modal_isActive: modal}">
+    <div class="modal" :class="{modal_isActive: modal}">
       <div class="modal__wrap">
         <div class="modal__content">
           <h2>Заявка отправлена.</h2>
           <img src="../assets/success_img.png">
-          <img src="../assets/exit-button.png" class="modal__button" v-on:click="closeModal()">
+          <img src="../assets/exit-button.png" class="modal__button" @:click="closeModal()">
         </div> 
       </div> 
     </div>
@@ -84,13 +84,13 @@ export default {
     onSubmit() {
       axios.post('https://60254fac36244d001797bfe8.mockapi.io/api/v1/send-form')
       .then(res => { 
-        console.log(res.data)
         if (res.data.success){
           this.modal = true
           } else {
             alert('Ошибка отправки заявки')
           }
       })
+      .catch(err => console.log(err))
     
     },
 
