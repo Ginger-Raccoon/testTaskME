@@ -1,49 +1,113 @@
 <template>
   <div :class="{hidden: modal}">
-    <form class="theForm" id="theForm" @submit.prevent="onSubmit()">
-      <label class="theForm__section theForm__section_type_required">Ваш филиал</label>
-      <select v-model="selectCity" aria-placeholder="Выберите город" :disabled= "selectCity === 'Онлайн'" v-on:change="formValidate()">
-        <option disabled value="">Выберите город</option>
-        <option v-for="city of cities" :key="city.id" :value="city.id" >{{city.title}}</option>
+    <form class="form" id="form" @submit.prevent="onSubmit()">
+      <label class="form__title form__title_type_required" for="selectCity-list">Ваш филиал</label>
+      <select
+      class="form__input form__input_type_list list"
+      id="selectCity-list"
+      v-model="selectCity"
+      aria-placeholder="Выберите город" :disabled= "selectCity === 'Онлайн'" 
+      v-on:change="formValidate()"
+      >
+        <option class="list__item" disabled value="">Выберите город</option>
+        <option class="list__item" v-for="city of cities" :key="city.id" :value="city.id" >{{city.title}}</option>
       </select>
-      <div class="section__wrap">
-        <input type="checkbox" v-model="selectCity" true-value="Онлайн" false-value="" v-on:change="formValidate()">
-        <label>Онлайн</label>
+      <div class="form__section">
+        <input
+        class="form__input form__input_type_check"
+        type="checkbox" 
+        v-model="selectCity" 
+        true-value="Онлайн" 
+        false-value="" 
+        v-on:change="formValidate()" 
+        id="selectCity-check"
+        >
+        <label class="form__label" for="selectCity-check">Онлайн</label>
       </div>
-      <label class="theForm__section theForm__section_type_required">Тема обращения</label>
-        <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Недоволен качеством услуг" v-on:change="formValidate()">
-          <label>Недоволен качеством услуг</label>
+      <label class="form__title form__title_type_required">Тема обращения</label>
+        <div class="form__section form__section_type_radio">
+          <input 
+          class="form__input form__input_type_radio"
+          type="radio" 
+          v-model="chosenReason" 
+          value="Недоволен качеством услуг" 
+          v-on:change="formValidate()"
+          id="radio-1"
+          >
+          <label class="form__label" for="radio-1" >Недоволен качеством услуг</label>
         </div>
-        <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Расторжение договора" v-on:change="formValidate()">
-          <label>Расторжение договора</label>
+        <div class="form__section form__section_type_radio">
+          <input
+          class="form__input form__input_type_radio"
+          type="radio"
+          v-model="chosenReason"
+          value="Расторжение договора"
+          v-on:change="formValidate()"
+          id="radio-2"
+          >
+          <label class="form__label" for="radio-2">Расторжение договора</label>
         </div>
-        <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Не приходит письмо активации на почту" v-on:change="formValidate()"> 
-          <label>Не приходит письмо активации на почту</label>
+        <div class="form__section form__section_type_radio">
+          <input
+          class="form__input form__input_type_radio"
+          type="radio"
+          v-model="chosenReason"
+          value="Не приходит письмо активации на почту"
+          v-on:change="formValidate()"
+          id="radio-3"
+          > 
+          <label class="form__label" for="radio-3" >Не приходит письмо активации на почту</label>
         </div>
-        <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Не работает личный кабинет" v-on:change="formValidate()">
-          <label>Не работает личный кабинет</label>
+        <div class="form__section form__section_type_radio">
+          <input 
+          class="form__input form__input_type_radio"
+          type="radio" 
+          v-model="chosenReason" 
+          value="Не работает личный кабинет" 
+          v-on:change="formValidate()"
+          id="radio-4"
+          >
+          <label class="form__label" for="radio-4" >Не работает личный кабинет</label>
         </div>
-        <input type="text" placeholder="Другое" v-model="chosenReason" v-on:change="formValidate()">
+        <input
+        class="form__input form__input_type_text"
+        type="text"
+        placeholder="Другое" 
+        v-model="chosenReason"
+        v-on:change="formValidate()"
+        >
       
-      <label class="theForm__section theForm__section_type_required">Описание проблемы</label> 
+      <label class="form__title form__title_type_required">Описание проблемы</label> 
       <textarea v-model="description" placeholder="Введите текст" v-on:keyup="formValidate()"></textarea>
       
-      <label class="theForm__section">Загрузка документов</label>
-        <p class="section__descr">Приложите, пожалуйста, полноэкранный скриншот. Это поможет быстрее решить проблему.</p>
-        <input type="file" accept="image/jpeg, image/gif, image/png">
+      <label class="form__title">Загрузка документов</label>
+        <p class="form__subtitle">Приложите, пожалуйста, полноэкранный скриншот. Это поможет быстрее решить проблему.</p>
+        <input
+        class="form__input form__input_type_file"
+        type="file"
+        accept="image/jpeg, image/gif, image/png"
+        >
       
-      <button type="submit" class="form__button form__button_type_disabled" id="button-sabmit" :disabled="buttonDisabled">Отправить</button>
+      <button 
+      class="form__button form__button_type_disabled"
+      type="submit"  
+      id="button-sabmit" 
+      :disabled="buttonDisabled"
+      >
+        Отправить
+      </button>
+
     </form>
     <div class="modal" :class="{modal_isActive: modal}">
       <div class="modal__wrap">
         <div class="modal__content">
-          <h2>Заявка отправлена.</h2>
-          <img src="../assets/success_img.png">
-          <img src="../assets/exit-button.png" class="modal__button" v-on:click="closeModal()">
+          <h2 class="modal__title">Заявка отправлена.</h2>
+          <img class="modal__success-img" src="../assets/success_img.png">
+          <img 
+          class="modal__button modal__button_type_close" 
+          src="../assets/exit-button.png"  
+          v-on:click="closeModal()"
+          >
         </div> 
       </div> 
     </div>
@@ -104,7 +168,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.theForm {
+.form {
   display: flex;
   flex-direction: column;
   max-width: 1300px;
@@ -115,12 +179,12 @@ export default {
   gap: 10px
 }
 
-.theForm__section_type_required::after {
+.form__title_type_required::after {
   content: ' *';
   color: red;
 }
 
-.section__wrap {
+.form__section {
   display: flex;
 }
 
