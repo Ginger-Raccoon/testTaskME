@@ -2,35 +2,35 @@
   <div :class="{hidden: modal}">
     <form class="theForm" id="theForm" @submit.prevent="onSubmit()">
       <label class="theForm__section theForm__section_type_required">Ваш филиал</label>
-      <select v-model="selectCity" aria-placeholder="Выберите город" :disabled= "selectCity === 'Онлайн'" @:change="formValidate()">
+      <select v-model="selectCity" aria-placeholder="Выберите город" :disabled= "selectCity === 'Онлайн'" v-on:change="formValidate()">
         <option disabled value="">Выберите город</option>
         <option v-for="city of cities" :key="city.id" :value="city.id" >{{city.title}}</option>
       </select>
       <div class="section__wrap">
-        <input type="checkbox" v-model="selectCity" true-value="Онлайн" false-value="" @:change="formValidate()">
+        <input type="checkbox" v-model="selectCity" true-value="Онлайн" false-value="" v-on:change="formValidate()">
         <label>Онлайн</label>
       </div>
       <label class="theForm__section theForm__section_type_required">Тема обращения</label>
         <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Недоволен качеством услуг" @:change="formValidate()">
+          <input type="radio" v-model="chosenReason" value="Недоволен качеством услуг" v-on:change="formValidate()">
           <label>Недоволен качеством услуг</label>
         </div>
         <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Расторжение договора" @:change="formValidate()">
+          <input type="radio" v-model="chosenReason" value="Расторжение договора" v-on:change="formValidate()">
           <label>Расторжение договора</label>
         </div>
         <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Не приходит письмо активации на почту" @:change="formValidate()"> 
+          <input type="radio" v-model="chosenReason" value="Не приходит письмо активации на почту" v-on:change="formValidate()"> 
           <label>Не приходит письмо активации на почту</label>
         </div>
         <div class="section__wrap">
-          <input type="radio" v-model="chosenReason" value="Не работает личный кабинет" @:change="formValidate()">
+          <input type="radio" v-model="chosenReason" value="Не работает личный кабинет" v-on:change="formValidate()">
           <label>Не работает личный кабинет</label>
         </div>
-        <input type="text" placeholder="Другое" v-model="chosenReason" @:change="formValidate()">
+        <input type="text" placeholder="Другое" v-model="chosenReason" v-on:change="formValidate()">
       
       <label class="theForm__section theForm__section_type_required">Описание проблемы</label> 
-      <textarea v-model="description" placeholder="Введите текст" @:keyup="formValidate()"></textarea>
+      <textarea v-model="description" placeholder="Введите текст" v-on:keyup="formValidate()"></textarea>
       
       <label class="theForm__section">Загрузка документов</label>
         <p class="section__descr">Приложите, пожалуйста, полноэкранный скриншот. Это поможет быстрее решить проблему.</p>
@@ -43,7 +43,7 @@
         <div class="modal__content">
           <h2>Заявка отправлена.</h2>
           <img src="../assets/success_img.png">
-          <img src="../assets/exit-button.png" class="modal__button" @:click="closeModal()">
+          <img src="../assets/exit-button.png" class="modal__button" v-on:click="closeModal()">
         </div> 
       </div> 
     </div>
