@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <h1>Форма подачи заявки в отдел сервиса и качества</h1>
+  <div class="page" id="app">
+    <h1 class="page__title">Форма подачи заявки в отдел сервиса и качества</h1>
     <TheForm />
   </div>
 </template>
@@ -17,13 +17,18 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+.page {
+  font-family: Avenir, Helvetica;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin: 60px;
-
+  max-width: 920px;
+  margin: 0 auto;
+  padding-top: 64px;
+}
+.page__title{
+  text-align: left;
+  font-size: 21px;
+  margin: 0 0 22px;
 }
 </style>

@@ -1,18 +1,20 @@
 <template>
   <div :class="{hidden: modal}">
     <form class="form" id="form" @submit.prevent="onSubmit()">
-      <label class="form__title form__title_type_required" for="selectCity-list">Ваш филиал</label>
-      <select
-      class="form__input form__input_type_list list"
-      id="selectCity-list"
-      v-model="selectCity"
-      aria-placeholder="Выберите город" :disabled= "selectCity === 'Онлайн'" 
-      v-on:change="formValidate()"
-      >
-        <option class="list__item" disabled value="">Выберите город</option>
-        <option class="list__item" v-for="city of cities" :key="city.id" :value="city.id" >{{city.title}}</option>
-      </select>
-      <div class="form__section">
+      <div class="form__section form__section_type_list">
+        <label class="form__title form__title_type_required" for="selectCity-list">Ваш филиал</label>
+        <select
+        class="form__input form__input_type_list list"
+        id="selectCity-list"
+        v-model="selectCity"
+        aria-placeholder="Выберите город" :disabled= "selectCity === 'Онлайн'" 
+        v-on:change="formValidate()"
+        >
+          <option class="list__item" disabled value="">Выберите город</option>
+          <option class="list__item" v-for="city of cities" :key="city.id" :value="city.id" >{{city.title}}</option>
+        </select>
+      </div>
+      <div class="form__section form__section_type_check">
         <input
         class="form__input form__input_type_check"
         type="checkbox" 
@@ -24,7 +26,8 @@
         >
         <label class="form__label" for="selectCity-check">Онлайн</label>
       </div>
-      <label class="form__title form__title_type_required">Тема обращения</label>
+      <div class="form__sections form__sections_type_radio">
+              <label class="form__title form__title_type_required">Тема обращения</label>
         <div class="form__section form__section_type_radio">
           <input 
           class="form__input form__input_type_radio"
@@ -69,6 +72,7 @@
           >
           <label class="form__label" for="radio-4" >Не работает личный кабинет</label>
         </div>
+      </div>
         <input
         class="form__input form__input_type_text"
         type="text"
@@ -76,23 +80,33 @@
         v-model="chosenReason"
         v-on:change="formValidate()"
         >
+
+      <div class="form__section form__section_type_textarea">
+        <label class="form__title form__title_type_required" for="problemDescription">Описание проблемы</label> 
+        <textarea
+          class="form__input form__input_type_textarea"
+          v-model="description"
+          placeholder="Введите текст" 
+          v-on:keyup="formValidate()"
+          id="problemDescription"
+        ></textarea>
+      </div>
       
-      <label class="form__title form__title_type_required">Описание проблемы</label> 
-      <textarea v-model="description" placeholder="Введите текст" v-on:keyup="formValidate()"></textarea>
-      
-      <label class="form__title">Загрузка документов</label>
+      <div class="form__section form__section_type_file">
+        <label class="form__title" for="downloadFile">Загрузка документов</label>
         <p class="form__subtitle">Приложите, пожалуйста, полноэкранный скриншот. Это поможет быстрее решить проблему.</p>
         <input
-        class="form__input form__input_type_file"
-        type="file"
-        accept="image/jpeg, image/gif, image/png"
+          class="form__input form__input_type_file"
+          type="file"
+          accept="image/jpeg, image/gif, image/png"
+          id="downloadFile"
         >
-      
+      </div>
       <button 
-      class="form__button form__button_type_disabled"
-      type="submit"  
-      id="button-sabmit" 
-      :disabled="buttonDisabled"
+        class="form__button"
+        type="submit"  
+        id="button-submit" 
+        :disabled="buttonDisabled"
       >
         Отправить
       </button>
@@ -173,10 +187,98 @@ export default {
   flex-direction: column;
   max-width: 1300px;
   justify-content: center;
-  border: solid 1px grey;
+  border: solid 1px #e1e1e1;
   align-items: flex-start;
-  padding: 30px;
-  gap: 10px
+  padding: 35px;
+  gap: 9px;
+  letter-spacing: .4px;
+}
+
+.form__title {
+  font-size: 15px;
+}
+
+.form__subtitle {
+  font-size: 13px;
+  margin-top: 11px;
+  max-width: 350px;
+}
+
+.form__input {
+  letter-spacing: .4px;
+}
+
+.form__input_type_list {
+  background-color: white;
+  border: 1px solid #e1e1e1;
+  padding: 7px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.form__input_type_check,
+.form__input_type_radio {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.form__input_type_check+label,
+.form__input_type_radio+label {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.form__input_type_check+label::before {
+  content: '';
+  display: inline-block;
+  color: transparent;
+  width: 22px;
+  height: 22px;
+  border: 1px solid black;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border-radius: 1px;
+  margin-right: 12px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50% 50%;
+}
+
+.form__input_type_check:checked+label::before {
+  background-image: url("../assets/checkbox.png");
+}
+
+.form__input_type_radio+label::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border: 1px solid black;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50% 50%;
+}
+
+.form__input_type_text {
+  margin-top: 6px;
+  min-width: 26%;
+  padding: 6px; 
+}
+
+.form__input_type_radio:checked+label::before {
+  background-image: url("../assets/dot.png");
+}
+
+.form__input_type_textarea {
+  resize: none;
+  outline: none;
+  min-height: 115px;
 }
 
 .form__title_type_required::after {
@@ -186,6 +288,57 @@ export default {
 
 .form__section {
   display: flex;
+}
+
+.form__section_type_check {
+  margin-top: 9px;
+}
+
+.form__sections_type_radio {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form__section_type_list {
+  flex-direction: column;
+  min-width: 28%;
+  gap: 9px;
+}
+
+.form__section_type_textarea {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  width: 100%;
+  gap: 10px;
+}
+
+.form__section_type_file {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+
+.form__label {
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.form__button {
+  margin-top: 21px;
+  text-transform: uppercase;
+  background-color: #ff9767;
+  color: white;
+  padding: 8px;
+  outline: none;
+  border: none;
+  min-width: 110px;
+}
+
+.form__button:disabled {
+  background-color: #e2e2e2;
 }
 
 .modal {
